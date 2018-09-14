@@ -1,0 +1,60 @@
+original link:https://awallet.io/erc721-the-consequences-of-poor-erc-design-what-you-can-do-about-it/
+
+When I used to work as a blockchain developer at the largest bank in Australia, we were constantly reminded of the consequences of software design, particularly when it came to creating standards that became common place.
+
+Standard design consequences are compounded further in blockchain as poor design can not only lead to security holes but can also lead to expensive transactions and network congestion that reaks havoc on everyone involved.
+
+While I no longer work at the bank and am instead working on creating a wallet platform and scaling solution, AlphaWallet, we are facing this problem head on, and I feel obliged to say something about it, particularly after the cryptokitties craze and the invention of ERC721.
+The major problems with ERC721
+
+To preface this article, I would like to say that this is not a personal attack on the cryptokitties team or anyone who designed ERC721, rather it is a critique that I know is justified and I understand that this standard was probably created in haste and thus for expedience sake, ended up with major flaws.
+
+So below I have compiled the reasons why you should avoid standards like ERC721 and some solutions to remedy the situation.
+No ability to get token ids
+
+If you look at erc721.org you will quickly notice that there is no functionality to get your token ids from the contract.
+
+You may not think this is a big deal but remember that the only way to make a transfer in erc721 is to reference your token id, without the ability to get your token ids, transferring is not even possible.
+
+Further, the inability to get your token ids means you will have great difficulty displaying your tokens anywhere.
+Where are my tokens?
+Inefficient transfer capability
+
+The cryptokitties craze quickly showed the limit of the ethereum network and the fact that ERC721 only implements transferring tokens one by one exacerbated the problem to new heights.
+
+This means that if you want to transfer 20 kitties to the same person, you need to send 20 transactions. This is very bad as in most cases, the majority of the gas cost comes from the transaction itself, meaning transferring tokens one by one will exponentially increase the cost and burden on the network.
+
+This could have been mitigated if they had mapped balances to arrays and allowed these arrays to be transferred.
+Inefficient design in general
+
+To get your balance or token ids(if even implemented) requires looping through every single token in the contract and matching them back to your address.
+
+In the case of cryptokitties, this means indexing over 800k kitties just to get your own balance.
+
+This has caused node services like Infura to simply time out, leaving the user non the wiser on what their actual balance is.
+What will happen if these problems are not addressed
+
+But surely you can create extension functions to handle any shortcomings of a standard?
+
+While it is true that you can extend the functionality to include whatever you want, you have to remember that people follow the standard they are given and whatever is missing will either be ignored or implemented in a subjective way.
+
+This means that major shortcomings like not having a way to get your token balance will cause huge ripples going forward as such basic functionality will not be uniform (everyones implementation will differ).
+
+Not addressing these issues will cause major issues for scalability (transfers and balance querying), adoption (lack of uniformity in implementation) and support (no way to be sure of how to perform basic functions properly).
+
+Going forward, we need to think hard about how we design our standards as poorly developed standards can become mainstream.
+Solutions
+
+So before you assume I am just a negative Nancy, let’s talk about how we can fix this issue.
+
+In general, it is best to only support a standard that handles basic functionality such as querying balance and transferring perfectly and not to worry about the bells and whistles as these can be extensions.
+
+The fact that ERC721 has failed to handle basic functions means you should look for alternatives such as ERC875, ERC1155 or ERC998; all these standards enable efficient querying and transferring in a coherent manner and can be extended just like ERC721.
+
+If we adopt other non fungible standards that get this right and choose good ERC’s in general, we can fix problems like this.
+When evaluating any ERC, ask yourself: does it has a solid foundation?
+Conclusion
+
+If you are a token issuer, please think carefully about which standards you choose, it will help scaling the network and make adoption of your token a much smoother process.
+
+If you are considering adopting a standard like ERC721 or any like it, please take a look at the alternatives.
